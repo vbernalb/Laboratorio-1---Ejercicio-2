@@ -124,9 +124,9 @@ public class Ejercicio2 {
                             System.out.println("Opcion no implementada, intente de nuevo\n" );
                             break;
                        
-                        }
-                     break;                            //FIN PRIMER CASO
+                        }                            //FIN PRIMER CASO
                     }
+                break;
                 
                 case 2:
                 int c = 0;
@@ -193,8 +193,9 @@ public class Ejercicio2 {
                             break;
                        
                     }  
-                break;
-            }       
+                
+                }  
+            break;
         }
         
     }

@@ -46,7 +46,7 @@ public class Inventario {
                 break;
             }
         }
-        if(ac==true){
+        if(ac){
         lista.add(producto);
         }
         int a = producto.getCantidad();

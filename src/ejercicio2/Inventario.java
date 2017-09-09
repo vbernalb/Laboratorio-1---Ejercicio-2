@@ -15,6 +15,7 @@ public class Inventario {
     private double vendido;
     private double comprado;
     private double ganancias;
+    private Proveedores prov;
 
     public Inventario() {
         this.lista = new ArrayList();
@@ -35,19 +36,41 @@ public class Inventario {
         return vendido;
     }
     
-    public void agregarP (Producto producto){
+    public void sumarProv(Producto producto, String proveedor, String fpago){
         boolean ac = true;
+        boolean am = true;
+        double  m =0;
+        for (int i = 0; i < prov.proveedores.size(); i++) {
+            if(prov.proveedores.get(i).getNombre().equals(proveedor)){
+               m = prov.proveedores.get(i).getDebe();
+               m += producto.getCantidad()*producto.getPrecio();
+               prov.proveedores.get(i).setDebe(m);
+               am = false;
+               break;
+            }
+        }
+        if(am){
+            Prov prov1 = new Prov(proveedor,m,fpago);
+            prov.proveedores.add(prov1);
+        }
+    };
+    
+    public void agregarP (Producto producto, String proveedor, String fpago){
+        boolean ac = true;
+        boolean am = true;
+        double  m =0;
         for (Producto prod : lista) {
             if(prod.getNombre().equals(producto.getNombre())){
                 prod.setPrecio(producto.getPrecio());
                 prod.setCantidad(producto.getCantidad());
                 prod.setPreciob(producto.getPreciob());
                 ac = false;
-                break;
+                sumarProv(producto, proveedor, fpago);
             }
         }
         if(ac){
         lista.add(producto);
+            sumarProv(producto, proveedor, fpago);
         }
         int a = producto.getCantidad();
         double b = producto.getPreciob();

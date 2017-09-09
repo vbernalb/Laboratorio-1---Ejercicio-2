@@ -17,10 +17,10 @@ public class Nomina {
         return empleados;
     }
 
-    public void setEmpleados(String nombre, String dia, String hl, String hs) {
+    public void setEmpleados(String nombre, Dia dia) {
         for (int i = 0; i < empleados.size(); i++) {
             if(empleados.get(i).getNombre().equals(nombre)){
-            this.empleados.get(i).adddiario(dia,hl,hs);
+            this.empleados.get(i).adddiario(dia);
             }
         }
     }
@@ -39,13 +39,26 @@ public class Nomina {
     
     public void mostrarUE (String nombre){
         for (Empleado empleado : empleados) {
-            if(empleado.getNombre().equals(nombre))
+            if(empleado.getNombre().equals(nombre)){
             System.out.println("Nombre: " + empleado.getNombre());
             System.out.println("Documento: " + empleado.getCC());
             System.out.println("Turno: " + empleado.getTurno());
             System.out.println("Informacion diaria");
-            empleado.mostrard();
-        }           
+            empleado.mostrard(nombre);
+            break;
+            }
+        }
+    };
+ 
+
+        public void quitarE (String nombre){
+        for (Empleado empleado : empleados) {
+            if(empleado.getNombre().equals(nombre)){
+                empleados.remove(empleado);
+                break;
+            }
+        }
+        System.out.println("Empleado eliminado");
     }
     
     

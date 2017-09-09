@@ -32,6 +32,10 @@ public class Empleado {
         return dia;
     }
 
+    public void setDia(Dia[] dia) {
+        this.dia = dia;
+    }
+
     public String getNombre() {
         return Nombre;
     }
@@ -56,15 +60,14 @@ public class Empleado {
         this.turno = turno;
     }
     
-    public void adddiario (String dia, String hl, String hs){
-        Dia dia1 = new Dia(dia,hl,hs);
-        this.dia[ac] = dia1;
+    public void adddiario (Dia dia){
+        this.dia[ac] = dia;
         ac++;
     }
     
-    public void mostrard (){
+    public void mostrard (String nombre){
         for (int i = 0; i < 31; i++) {
-            if(dia[i]!=null){
+            if(this.Nombre.equals(nombre) && dia[i]!=null){
                 System.out.println("Dia: " + dia[i].getDia());
                 System.out.println("Hora Llegada: " + dia[i].getHLLegada());
                 System.out.println("Hora Salida: " + dia[i].getHSalida());

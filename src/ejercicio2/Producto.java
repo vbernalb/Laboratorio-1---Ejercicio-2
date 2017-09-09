@@ -12,23 +12,34 @@ package ejercicio2;
 public class Producto {
     
     private String Nombre;
-    private double Precio;
+    private double PrecioVenta;
     private int Cantidad;
     private int ventas;
+    private double preciob;
 
-    public Producto(double Precio, int Cantidad, String Nombre) {
-        this.Precio = Precio;
+    public Producto(double Precio, int Cantidad, String Nombre, double preciob) {
+        this.PrecioVenta = Precio;
         this.Cantidad = Cantidad;
         this.Nombre = Nombre;
         this.ventas = 0;
+        this.preciob = preciob;
     }
 
+    public double getPreciob() {
+        return preciob;
+    }
+
+    public void setPreciob(double preciob) {
+        this.preciob = preciob;
+    }
+
+    
     public double getPrecio() {
-        return Precio;
+        return PrecioVenta;
     }
 
-    public void setPrecio(double Precio) {
-        this.Precio = Precio;
+    public void setPrecio(double PrecioVenta) {
+        this.PrecioVenta = PrecioVenta;
     }
 
     public int getCantidad() {

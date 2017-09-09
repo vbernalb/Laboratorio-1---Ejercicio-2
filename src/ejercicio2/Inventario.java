@@ -11,31 +11,59 @@ import java.util.*;
  */
 public class Inventario {
     
-    private ArrayList <Producto> lista = new ArrayList();
+    private ArrayList <Producto> lista;
     private double vendido;
-     
-    public void setVendido() {
+    private double comprado;
+    private double ganancias;
+
+    public Inventario() {
+        this.lista = new ArrayList();
         this.vendido = 0.0;
+        this.comprado = 0.0;
+        this.ganancias = 0.0;
+    }
+
+    public double getComprado() {
+        return comprado;
     }
     
+    public double getGanancias() {
+        return ganancias;
+    }
+        
     public double getVendido() {
         return vendido;
     }
-
-    public Inventario() {
-        this.vendido = 0.0;
-    }
     
     public void agregarP (Producto producto){
+        boolean ac = true;
+        for (Producto prod : lista) {
+            if(prod.getNombre().equals(producto.getNombre())){
+                prod.setPrecio(producto.getPrecio());
+                prod.setCantidad(producto.getCantidad());
+                prod.setPreciob(producto.getPreciob());
+                ac = false;
+                break;
+            }
+        }
+        if(ac==true){
         lista.add(producto);
+        }
+        int a = producto.getCantidad();
+        double b = producto.getPreciob();
+        this.comprado += a*b;
+        this.ganancias -= a*b;
+                
     }
     
     public void quitarP (String nombre){
         for (Producto prod : lista) {
-            if(prod.getNombre().equalsIgnoreCase(nombre)){
+            if(prod.getNombre().equals(nombre)){
                 lista.remove(prod);
+                break;
             }
         }
+        System.out.println("Producto eliminado");
     }
     
     public boolean venta (String nombre, int cant){
@@ -50,6 +78,7 @@ public class Inventario {
                 }
 
                 this.vendido += cant*prod.getPrecio(); // PARA CUANTO HA VENDIDO LA TIENDA
+                this.ganancias += cant*prod.getPrecio();
                 int b = prod.getVentas(); // PARA LISTA DE MAS VENDIDOS
                 b += cant;
                 prod.setVentas(b);
@@ -59,7 +88,7 @@ public class Inventario {
         System.out.println("No hay el producto o la cantidad que desea");
         return false;
     }
-     
+    
     public void mostrarP (){
         for (Producto producto : lista) {
             System.out.println("Nombre: " + producto.getNombre());
@@ -68,16 +97,30 @@ public class Inventario {
         }
     }
     
+    public ArrayList clonar (){
+        ArrayList <Producto> n = new ArrayList();
+        for (Producto prod: lista) {
+            n.add(prod);
+        }
+        return n;
+    } //PARA MasVend y MenosVend
+    
     public  ArrayList<String> MasVend(){
         ArrayList <String> n = new ArrayList();
-        for (int j=0; j<lista.size(); j++) {
-            boolean ac = true;
-            for (int i = 0; i < lista.size(); i++) {
-               ac &= lista.get(j).getVentas()>= lista.get(i).getVentas();    
+        ArrayList <Producto> m = clonar();
+        boolean ac = true;
+        int j=0;
+        while(m.size()!=0){
+            for (int i = 0; i < m.size(); i++) {
+               ac &= m.get(j).getVentas()>= m.get(i).getVentas();    
                }
             if(ac){
-                String a = lista.get(j).getNombre();
+                String a = m.get(j).getNombre();
                 n.add(a);
+                m.remove(j);
+                j=0;
+            }else{
+                j++;
             }
             ac = true;
         }
@@ -86,31 +129,24 @@ public class Inventario {
  
     public  ArrayList<String> MenosVend(){
         ArrayList <String> n = new ArrayList();
-        for (int j=0; j<lista.size(); j++) {
-            boolean ac = true;
-            for (int i = 0; i < lista.size(); i++) {
-               ac &= lista.get(j).getVentas()<= lista.get(i).getVentas();    
+        ArrayList <Producto> m = clonar();
+        boolean ac = true;
+        int j=0;
+        while(m.size()!=0){
+            for (int i = 0; i < m.size(); i++) {
+               ac &= m.get(j).getVentas()<= m.get(i).getVentas();    
                }
             if(ac){
-                String a = lista.get(j).getNombre();
+                String a = m.get(j).getNombre();
                 n.add(a);
+                m.remove(j);
+                j=0;
+            }else{
+                j++;
             }
             ac = true;
         }
         return n;
-    }
-        
-    public void MasVendi(){
-        Map<Integer, String> x = new TreeMap();
-            for (Producto prod : lista) {
-            x.put(prod.getVentas(),prod.getNombre());
-        }
-            Iterator it = x.keySet().iterator();
-            while(it.hasNext()){
-            Integer key = (Integer) it.next();
-            System.out.println("Clave: " + key + " -> Valor: " + x.get(key));
-            
-        }
     }
     
     public void MVendidos(){
@@ -119,7 +155,7 @@ public class Inventario {
             System.out.println(Mv);
         }
     }
-    
+
     public void MeVendidos(){
         ArrayList<String> a = MenosVend();
         for (String Mv : a) {
@@ -128,6 +164,26 @@ public class Inventario {
     }
 
     
+  /*      
+    public void MasVendi(){
+        Map<Integer, String> x = new TreeMap();
+            for (Producto prod : lista) {
+            x.put(prod.getVentas(),prod.getNombre());
+        }
+                System.out.println(x.toString());     
+    }
+
+    
+    public void MeVendi(){
+        Map<Integer, String> x = new TreeMap();
+            for (Producto prod : lista) {
+            x.put(prod.getVentas(),prod.getNombre());
+        }
+                System.out.println(x.toString());
+    }
+*/
+
+
     
     
     

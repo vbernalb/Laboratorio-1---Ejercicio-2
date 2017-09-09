@@ -16,7 +16,7 @@ public class Ejercicio2 {
         
         Inventario inv = new Inventario();
         Nomina nomina = new Nomina();
-        Proveedores prov = new Proveedores();
+
         
         Scanner In = new Scanner (System.in);
         
@@ -63,19 +63,21 @@ public class Ejercicio2 {
                         case 1:
                             int z = 0;
                             do{
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del producto");
-                            String j = In.next();
+                            String j = In.nextLine();
                             System.out.println("Ingrese el valor real");
                             double d = In.nextDouble();
                             System.out.println("Ingrese el valor al publico");
                             double v = In.nextDouble();
                             System.out.println("Ingrese la cantidad");
                             int cc = In.nextInt();
-                            System.out.println("Ingrese 1 si el proveedor ya esta registrado en el sistema");
+                            System.out.println("Ingrese 1 si el proveedor ya esta registrado en el sistema, otro numero en caso de que no lo este");
                             int nn = In.nextInt();
-                            System.out.println("Ingrese el proveedor");
-                            String hg = In.next();
-                            System.out.println("Ingrese fecha limite de pago");
+                            In.skip("\n");
+                            System.out.println("Ingrese el nombre proveedor");
+                            String hg = In.nextLine();
+                            System.out.println("Ingrese fecha limite de pago (dd/mm/aaaa)");
                             String hm = In.next();
 
                                    
@@ -88,8 +90,9 @@ public class Ejercicio2 {
                             break;
                         case 2:
                             System.out.println( "Usted eligio realizar una venta" );
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del producto" );
-                            String Name = In.next();
+                            String Name = In.nextLine();
                             System.out.println( "Ingrese la cantidad que va a comprar" );
                             int cant = In.nextInt();
 
@@ -121,8 +124,9 @@ public class Ejercicio2 {
                             break;
                         case 9:
                             System.out.println("Usted eligio elimnar producto del inventario" );
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del producto" );
-                            String gg = In.next();
+                            String gg = In.nextLine();
                             inv.quitarP(gg);
                             break;
                         case 10:
@@ -156,11 +160,12 @@ public class Ejercicio2 {
                         case 1:
                             int zz = 0;
                             do{
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del empleado");
-                            String j = In.next();
+                            String j = In.nextLine();
                             System.out.println("Ingrese el documento de identificacion");
                             int d = In.nextInt();
-                            System.out.println("Ingrese el turno");
+                            System.out.println("Ingrese el turno (1 o 2)");
                             int v = In.nextInt();
 
                             Empleado emp = new Empleado(j,d,v);
@@ -172,8 +177,9 @@ public class Ejercicio2 {
                             break;
                         case 2:
                             System.out.println( "Usted eligio agregar informacion diaria empleado" );
+                            In.skip("\n");
                             System.out.println( "Ingrese el nombre del empleado" );
-                            String nombre = In.next();
+                            String nombre = In.nextLine();
                             System.out.println("Ingrese el dia (dd/mm/aaaa)" );
                             String dia = In.next();
                             System.out.println( "Ingrese la hora de llegada (hh:mm)" );
@@ -191,14 +197,16 @@ public class Ejercicio2 {
                             break;
                         case 4:
                             System.out.println("Usted eligio ver la informacion un empleado" ); 
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre" ); 
-                            String aa = In.next();
+                            String aa = In.nextLine();
                             nomina.mostrarUE(aa);
                             break;
                         case 5:
                             System.out.println("Usted eligio eliminar un empleado\n" );
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del empleado\n" );
-                            String xx = In.next();
+                            String xx = In.nextLine();
                             nomina.quitarE(xx);
                             break;
                         case 6:
@@ -215,7 +223,7 @@ public class Ejercicio2 {
             
             case 3:
                 c = 0;
-                while (c!=6){
+                while (c!=7){
                     System.out.println(
                     "\n" +
                     "\n" +
@@ -223,50 +231,58 @@ public class Ejercicio2 {
                     "1. Agregar deuda a proveedor\n" +
                     "2. Ver informacion todos los proveedores\n" +
                     "3. Ver informacion de un proveedor\n" +
-                    "5. Eliminar un proveedor\n" +
+                    "4. Eliminar un proveedor\n" +
                     "5. Pagar deuda\n" +
-                    "6. Salir\n" +
+                    "6. Lista de productos agotados\n" +
+                    "7. Salir\n" +
                     "\n" 
                     );
                     c = In.nextInt();
                     switch (c){
                         case 1:
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del proveedor");
-                            String j = In.next();
+                            String j = In.nextLine();
                             System.out.println("Ingrese el valor de la deduda adquirida con dicho proveedor");
                             double d = In.nextDouble();
-                            System.out.println("Ingrese la fecha limite de pago");
+                            System.out.println("Ingrese la fecha limite de pago (dd/mm/aaaa)");
                             String v = In.next();
                             
-                            prov.addDeuda(j, d, v);
+                            inv.addDeuda(j, d, v);
                             
                             break;
                         case 2:
                             System.out.println("Usted eligio ver informacion de todos los proveedores" );
-                            prov.Mprov();
+                            inv.Mprov();
                             break;
                         case 3:
-//                            Prov prov1 = new Prov("a",0.0,"a");
-  //                          prov.proveedores.add(prov1);
                             System.out.println("Usted eligio ver la informacion un proveedor" ); 
-                            System.out.println("Ingrese el nombre" ); 
-                            String aa = In.next();
-                            prov.MUprov(aa);
+                            In.skip("\n");
+                            System.out.println("Ingrese el nombre del proveedor" ); 
+                            String aa = In.nextLine();
+                            inv.MUprov(aa);
                             break;
                         case 4:
                             System.out.println("Usted eligio eliminar un proveedor" );
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del proveedor" );
-                            String xx = In.next();
-                            prov.quitarProv(xx);
+                            String xx = In.nextLine();
+                            inv.quitarProv(xx);
                             break;
                         
                         case 5:
                             System.out.println("Usted eligio pagar deuda" );
+                            In.skip("\n");
                             System.out.println("Ingrese el nombre del proveedor\n" );
-                            xx = In.next();
-                            prov.Pdeuda(xx);
+                            xx = In.nextLine();
+                            inv.Pdeuda(xx);
                             break;
                         case 6:
+                            System.out.println("Usted eligio productos por pedir\n" );
+                            System.out.println("Lista de productos agotados");
+                            inv.Pedir();
+                            break;
+                        case 7:
                             System.out.println("Gracias por utilizar el programa. Adios\n" );
                             break;
                         default:

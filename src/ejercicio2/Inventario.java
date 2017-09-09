@@ -12,17 +12,20 @@ import java.util.*;
 public class Inventario {
     
     private ArrayList <Producto> lista;
+    private ArrayList <Prov> proveedores;
+    private ArrayList <String> pedidos;
+    
     private double vendido;
     private double comprado;
     private double ganancias;
-    private Proveedores prov;
 
     public Inventario() {
         this.lista = new ArrayList();
         this.vendido = 0.0;
         this.comprado = 0.0;
         this.ganancias = 0.0;
-        this.prov = new Proveedores();
+        this.proveedores = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
     }
 
     public double getComprado() {
@@ -42,14 +45,15 @@ public class Inventario {
         double  m =0;
         if(a!=1){
             Prov prov1 = new Prov(proveedor,0,fpago);
-            prov.getProveedores().add(prov1);
+            proveedores.add(prov1);
         }
-        int t = prov.getProveedores().size();
+        int t = proveedores.size();
         for (int i = 0; i < t ; i++) {
-            if(prov.getProveedores().get(i).getNombre().equals(proveedor)&& prov.getProveedores().get(i)!=null){
-               m = prov.getProveedores().get(i).getDebe();
-               m += producto.getCantidad()*producto.getPrecio();
-               prov.getProveedores().get(i).setDebe(m);
+            if(proveedores.get(i).getNombre().equals(proveedor)&& proveedores.get(i)!=null){
+               m = proveedores.get(i).getDebe();
+               m += producto.getCantidad()*producto.getPreciob();
+               proveedores.get(i).setDebe(m);
+               proveedores.get(i).setFechaP(fpago);
                am = false;
                break;
             }
@@ -66,7 +70,9 @@ public class Inventario {
         for (Producto prod : lista) {
             if(prod.getNombre().equals(producto.getNombre())){
                 prod.setPrecio(producto.getPrecio());
-                prod.setCantidad(producto.getCantidad());
+                int hg = prod.getCantidad();
+                hg += producto.getCantidad();
+                prod.setCantidad(hg);
                 prod.setPreciob(producto.getPreciob());
                 ac = false;
                 sumarProv(producto, proveedor, fpago,a);
@@ -102,6 +108,7 @@ public class Inventario {
                 System.out.println("Compra exitosa");
                 if(prod.getCantidad()==0){
                     System.out.println("Realizar pedido de " + prod.getNombre()); // SI SE ACABA EL PRODUCTO
+                    pedidos.add(nombre);
                 }
 
                 this.vendido += cant*prod.getPrecio(); // PARA CUANTO HA VENDIDO LA TIENDA
@@ -191,7 +198,93 @@ public class Inventario {
     }
 
     
+    
+    
+    
+    
+    
+    
+    
+    public ArrayList<Prov> getProveedores() {
+        return proveedores;
+    }
+
+    
+    public void addDeuda (String nombre, double deuda, String fechaP){ //AGREGAR DEUDA A UN PROVEEDOR
+        for (Prov proveedor : proveedores) {
+            if(proveedor.getNombre().equals(nombre)){
+                double x = proveedor.getDebe();
+                x += deuda;
+                proveedor.setDebe(x);
+                proveedor.setFechaP(fechaP);
+                System.out.println("Deuda total al proveedor " + proveedor.getNombre() + " = " + proveedor.getDebe());
+                break;
+            }
+        } 
+    }
+    
+    public void Mprov(){ //MOSTRAR INFO TODOS LOS PROVEEDORES
+        for (Prov proveedore : proveedores) {
+            System.out.println("Nombre: " + proveedore.getNombre());
+            System.out.println("Deuda: " + proveedore.getDebe());
+            System.out.println("Fecha limite de pago: " + proveedore.getFechaP() + "\n");
+        }
+    }
+    
+    public void MUprov(String nombre){ //MOSTRAR INFO UN PROVEEDOR
+        for (Prov proveedore : proveedores) {
+             if(proveedore.getNombre().equals(nombre)){
+                System.out.println("Nombre: " + proveedore.getNombre());
+                System.out.println("Deuda: " + proveedore.getDebe());
+                System.out.println("Fecha limite de pago: " + proveedore.getFechaP() + "\n");
+                break;
+            }   
+        }
+    }
+    
+    public void Pdeuda(String nombre){ //PAGAR DEUDA
+        for (Prov proveedore : proveedores) {
+            if(proveedore.getNombre().equals(nombre)){
+                proveedore.setDebe(0.0);
+                proveedore.setFechaP("Al dia");
+                break;
+            }
+            
+        }
+    }
+    
+    public void quitarProv (String nombre){
+        for (Prov proveedore : proveedores) {
+            if(proveedore.getNombre().equals(nombre)){
+                proveedores.remove(proveedore);
+                System.out.println("Proveedor eliminado");
+                break;
+            }
+        }
+    }
+    
+    
+    public void Pedir(){
+        for (String ped : pedidos) {
+            System.out.println(ped);
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+}    
+    
+    
+    
   /*      
+    
     public void MasVendi(){
         Map<Integer, String> x = new TreeMap();
             for (Producto prod : lista) {
@@ -218,4 +311,3 @@ public class Inventario {
     
     
     
-}

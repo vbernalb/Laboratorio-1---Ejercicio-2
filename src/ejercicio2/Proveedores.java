@@ -12,9 +12,14 @@ import java.util.*;
 public class Proveedores {
     ArrayList <Prov> proveedores;
 
-    public Proveedores(ArrayList<Prov> proveedores) {
-        this.proveedores = proveedores;
+    public Proveedores() {
+        this.proveedores = new ArrayList<>(0);
     }
+
+    public ArrayList<Prov> getProveedores() {
+        return proveedores;
+    }
+
     
     public void addDeuda (String nombre, double deuda, String fechaP){ //AGREGAR DEUDA A UN PROVEEDOR
         for (Prov proveedor : proveedores) {
@@ -39,12 +44,12 @@ public class Proveedores {
     
     public void MUprov(String nombre){ //MOSTRAR INFO UN PROVEEDOR
         for (Prov proveedore : proveedores) {
-            if(proveedore.getNombre().equals(nombre)){
+             if(proveedore.getNombre().equals(nombre)){
                 System.out.println("Nombre: " + proveedore.getNombre());
-                System.out.println("Deuda: " + proveedore.getDebe() + "\n");
+                System.out.println("Deuda: " + proveedore.getDebe());
                 System.out.println("Fecha limite de pago: " + proveedore.getFechaP() + "\n");
                 break;
-            }
+            }   
         }
     }
     

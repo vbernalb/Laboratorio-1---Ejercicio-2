@@ -16,6 +16,7 @@ public class Ejercicio2 {
         
         Inventario inv = new Inventario();
         Nomina nomina = new Nomina();
+        Proveedores prov = new Proveedores();
         
         Scanner In = new Scanner (System.in);
         
@@ -70,13 +71,16 @@ public class Ejercicio2 {
                             double v = In.nextDouble();
                             System.out.println("Ingrese la cantidad");
                             int cc = In.nextInt();
+                            System.out.println("Ingrese 1 si el proveedor ya esta registrado en el sistema");
+                            int nn = In.nextInt();
                             System.out.println("Ingrese el proveedor");
                             String hg = In.next();
                             System.out.println("Ingrese fecha limite de pago");
                             String hm = In.next();
-                            
+
+                                   
                             Producto producto = new Producto(v,cc,j,d);
-                            inv.agregarP(producto,hg,hm);
+                            inv.agregarP(producto,hg,hm,nn);
                             System.out.println("Digite 1 si quiere seguir ingresando productos");
                             z = In.nextInt();
                             }
@@ -227,52 +231,40 @@ public class Ejercicio2 {
                     c = In.nextInt();
                     switch (c){
                         case 1:
-                            int zz = 0;
-                            do{
-                            System.out.println("Ingrese el nombre del empleado");
+                            System.out.println("Ingrese el nombre del proveedor");
                             String j = In.next();
-                            System.out.println("Ingrese el documento de identificacion");
-                            int d = In.nextInt();
-                            System.out.println("Ingrese el turno");
-                            int v = In.nextInt();
-
-                            Empleado emp = new Empleado(j,d,v);
-                            nomina.addEmpleado(emp);
-                            System.out.println("Digite 1 si quiere seguir ingresando empleados");
-                            zz = In.nextInt();
-                            }
-                            while(zz==1);
+                            System.out.println("Ingrese el valor de la deduda adquirida con dicho proveedor");
+                            double d = In.nextDouble();
+                            System.out.println("Ingrese la fecha limite de pago");
+                            String v = In.next();
+                            
+                            prov.addDeuda(j, d, v);
+                            
                             break;
                         case 2:
-                            System.out.println( "Usted eligio agregar informacion diaria empleado" );
-                            System.out.println( "Ingrese el nombre del empleado" );
-                            String nombre = In.next();
-                            System.out.println("Ingrese el dia (dd/mm/aaaa)" );
-                            String dia = In.next();
-                            System.out.println( "Ingrese la hora de llegada (hh:mm)" );
-                            String hl = In.next();
-                            System.out.println( "Ingrese la hora de salida (hh:mm)" );
-                            String hs = In.next();
-                            
-                            Dia dia1 = new Dia(dia,hl,hs);
-                            nomina.setEmpleados(nombre, dia1);
-                            
+                            System.out.println("Usted eligio ver informacion de todos los proveedores" );
+                            prov.Mprov();
                             break;
                         case 3:
-                            System.out.println("Usted eligio ver informacion de todos los empleados" );
-                            nomina.mostrarE();
-                            break;
-                        case 4:
-                            System.out.println("Usted eligio ver la informacion un empleado" ); 
+//                            Prov prov1 = new Prov("a",0.0,"a");
+  //                          prov.proveedores.add(prov1);
+                            System.out.println("Usted eligio ver la informacion un proveedor" ); 
                             System.out.println("Ingrese el nombre" ); 
                             String aa = In.next();
-                            nomina.mostrarUE(aa);
+                            prov.MUprov(aa);
                             break;
-                        case 5:
-                            System.out.println("Usted eligio eliminar un empleado\n" );
-                            System.out.println("Ingrese el nombre del empleado\n" );
+                        case 4:
+                            System.out.println("Usted eligio eliminar un proveedor" );
+                            System.out.println("Ingrese el nombre del proveedor" );
                             String xx = In.next();
-                            nomina.quitarE(xx);
+                            prov.quitarProv(xx);
+                            break;
+                        
+                        case 5:
+                            System.out.println("Usted eligio pagar deuda" );
+                            System.out.println("Ingrese el nombre del proveedor\n" );
+                            xx = In.next();
+                            prov.Pdeuda(xx);
                             break;
                         case 6:
                             System.out.println("Gracias por utilizar el programa. Adios\n" );

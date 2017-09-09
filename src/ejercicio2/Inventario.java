@@ -22,6 +22,7 @@ public class Inventario {
         this.vendido = 0.0;
         this.comprado = 0.0;
         this.ganancias = 0.0;
+        this.prov = new Proveedores();
     }
 
     public double getComprado() {
@@ -36,26 +37,29 @@ public class Inventario {
         return vendido;
     }
     
-    public void sumarProv(Producto producto, String proveedor, String fpago){
-        boolean ac = true;
+    public void sumarProv(Producto producto, String proveedor, String fpago, int a){
         boolean am = true;
         double  m =0;
-        for (int i = 0; i < prov.proveedores.size(); i++) {
-            if(prov.proveedores.get(i).getNombre().equals(proveedor)){
-               m = prov.proveedores.get(i).getDebe();
+        if(a!=1){
+            Prov prov1 = new Prov(proveedor,0,fpago);
+            prov.getProveedores().add(prov1);
+        }
+        int t = prov.getProveedores().size();
+        for (int i = 0; i < t ; i++) {
+            if(prov.getProveedores().get(i).getNombre().equals(proveedor)&& prov.getProveedores().get(i)!=null){
+               m = prov.getProveedores().get(i).getDebe();
                m += producto.getCantidad()*producto.getPrecio();
-               prov.proveedores.get(i).setDebe(m);
+               prov.getProveedores().get(i).setDebe(m);
                am = false;
                break;
             }
         }
         if(am){
-            Prov prov1 = new Prov(proveedor,m,fpago);
-            prov.proveedores.add(prov1);
+            m = producto.getCantidad()*producto.getPrecio();
         }
     };
     
-    public void agregarP (Producto producto, String proveedor, String fpago){
+    public void agregarP (Producto producto, String proveedor, String fpago, int a){
         boolean ac = true;
         boolean am = true;
         double  m =0;
@@ -65,17 +69,17 @@ public class Inventario {
                 prod.setCantidad(producto.getCantidad());
                 prod.setPreciob(producto.getPreciob());
                 ac = false;
-                sumarProv(producto, proveedor, fpago);
+                sumarProv(producto, proveedor, fpago,a);
             }
         }
         if(ac){
         lista.add(producto);
-            sumarProv(producto, proveedor, fpago);
+            sumarProv(producto, proveedor, fpago,a);
         }
-        int a = producto.getCantidad();
+        int k = producto.getCantidad();
         double b = producto.getPreciob();
-        this.comprado += a*b;
-        this.ganancias -= a*b;
+        this.comprado += k*b;
+        this.ganancias -= k*b;
                 
     }
     
